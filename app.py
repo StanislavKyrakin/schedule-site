@@ -75,7 +75,7 @@ def get_data(force=False):
         return _cache["data"]
 
     if not SPREADSHEET_ID:
-        raise RuntimeError("Не задана переменная окружения SPREADSHEET_ID.")
+        raise RuntimeError("Не задано змінну середовища SPREADSHEET_ID.")
 
     service = sheets_service()
 
@@ -86,14 +86,14 @@ def get_data(force=False):
         ).execute()
     except HttpError as exc:
         raise RuntimeError(
-            "Не удалось открыть Google Таблицу. Проверьте SPREADSHEET_ID "
-            "и доступ Cloud Run service account к таблице."
+            "Не вдалося відкрити Google Таблицю. Перевірте SPREADSHEET_ID "
+            "та доступ облікового запису служби Cloud Run до таблиці."
         ) from exc
 
     existing = {x["properties"]["title"] for x in available.get("sheets", [])}
     missing = [s for s in REQUIRED_SHEETS if s not in existing]
     if missing:
-        raise RuntimeError("В Google Таблице отсутствуют листы: " + ", ".join(missing))
+        raise RuntimeError("У Google Таблиці відсутні аркуші: " + ", ".join(missing))
 
     sheets = {}
     for sheet_name in REQUIRED_SHEETS + OPTIONAL_SHEETS:
@@ -195,7 +195,7 @@ def globals_for_templates():
     except Exception:
         settings = {}
     return {
-        "site_title": settings.get("Название сайта", "Школьное расписание"),
+        "site_title": settings.get("Название сайта", "Шкільний розклад"),
         "year": settings.get("Год в футере", str(datetime.now().year)),
     }
 
@@ -215,7 +215,7 @@ def index():
 def class_page(class_id):
     ctx, data = get_class_context(class_id)
     if not ctx:
-        return render_template("404.html", message="Класс не найден"), 404
+        return render_template("404.html", message="Клас не знайдено"), 404
 
     day_cards = []
     for day in data["days"]:
@@ -250,11 +250,11 @@ def class_page(class_id):
 def day_page(class_id, day_id):
     ctx, data = get_class_context(class_id)
     if not ctx:
-        return render_template("404.html", message="Класс не найден"), 404
+        return render_template("404.html", message="Клас не знайдено"), 404
 
     day = next((d for d in data["days"] if d["id"] == str(day_id)), None)
     if not day:
-        return render_template("404.html", message="День не найден"), 404
+        return render_template("404.html", message="День не знайдено"), 404
 
     lessons = sorted(
         [x for x in ctx["schedule"] if x["day_id"] == str(day_id)],
@@ -300,13 +300,13 @@ def health():
 
 @app.errorhandler(404)
 def not_found(_):
-    return render_template("404.html", message="Страница не найдена"), 404
+    return render_template("404.html", message="Сторінку не знайдено"), 404
 
 
 @app.errorhandler(Exception)
 def server_error(exc):
     # Keep the user-facing message useful without exposing a traceback.
-    return render_template("404.html", message=f"Ошибка загрузки данных: {exc}"), 500
+    return render_template("404.html", message=f"Помилка завантаження даних: {exc}"), 500
 
 
 if __name__ == "__main__":
