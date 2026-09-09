@@ -195,7 +195,7 @@ def globals_for_templates():
     except Exception:
         settings = {}
     return {
-        "site_title": settings.get("Название сайта", "Шкільний розклад"),
+        "site_title": settings.get("Назва сайту", "Шкільний розклад"),
         "year": settings.get("Год в футере", str(datetime.now().year)),
     }
 
