@@ -9,13 +9,13 @@
 <body>
 <header class="site-header"><div class="header-inner">
   <a class="brand" href="{{ url_for('index') }}"><span class="brand-icon">▣</span>{{ site_title }}</a>
-  <nav class="main-nav"><a href="{{ url_for('index') }}">⌂ Главная</a>{% if class_obj is defined %}<a class="active" href="{{ url_for('class_page', class_id=class_obj.id) }}">Мой класс</a>{% endif %}<a href="{{ url_for('admin') }}">Google Sheets</a></nav>
-  {% if class_obj is defined %}<div class="class-pill">👥 {{ class_obj.name }} класс</div>{% endif %}<button class="menu-button">☰</button>
+  <nav class="main-nav"><a href="{{ url_for('index') }}">⌂ Головна</a>{% if class_obj is defined %}<a class="active" href="{{ url_for('class_page', class_id=class_obj.id) }}">Мій клас</a>{% endif %}<a href="{{ url_for('admin') }}">Google Sheets</a></nav>
+  {% if class_obj is defined %}<div class="class-pill">👥 {{ class_obj.name }} клас</div>{% endif %}<button class="menu-button">☰</button>
 </div></header>
 <main class="container">{% block content %}{% endblock %}</main>
 <footer class="site-footer"><div class="footer-inner">
-  <div class="footer-brand"><span class="brand-icon">▣</span><div><strong>{{ site_title }}</strong><small>Расписание уроков и полезные ресурсы</small></div></div>
-  <nav><a href="{{ url_for('index') }}">Главная</a>{% if class_obj is defined %}<a href="{{ url_for('class_page', class_id=class_obj.id) }}">Расписание</a>{% endif %}<a href="{{ url_for('admin') }}">Excel</a></nav>
+  <div class="footer-brand"><span class="brand-icon">▣</span><div><strong>{{ site_title }}</strong><small>Розклад уроків і корисні ресурси</small></div></div>
+  <nav><a href="{{ url_for('index') }}">Главная</a>{% if class_obj is defined %}<a href="{{ url_for('class_page', class_id=class_obj.id) }}">Розклад</a>{% endif %}<a href="{{ url_for('admin') }}">Excel</a></nav>
   <div class="footer-socials">●　●　●　●<small>© {{ year }}</small></div>
-</div><div class="generator-note">Данные сайта загружаются из Google Sheets</div></footer>
+</div><div class="generator-note">Дані сайту завантажуються з Google Sheets</div></footer>
 </body></html>
