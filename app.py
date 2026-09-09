@@ -132,27 +132,27 @@ def get_data(force=False):
             "note": text(r.get("Примечание")),
         })
 
-        def social_icon(name):
-            name_lower = text(name).lower()
-    
-            if "facebook" in name_lower:
-                return "facebook"
-            if "instagram" in name_lower:
-                return "instagram"
-            if "youtube" in name_lower:
-                return "youtube"
-            if "tiktok" in name_lower:
-                return "tiktok"
-            if "telegram" in name_lower:
-                return "telegram"
-            if "viber" in name_lower:
-                return "viber"
-            if "linkedin" in name_lower:
-                return "linkedin"
-            if "whatsapp" in name_lower:
-                return "whatsapp"
-    
-            return "default"
+    def social_icon(name):
+        name_lower = text(name).lower()
+
+        if "facebook" in name_lower:
+            return "facebook"
+        if "instagram" in name_lower:
+            return "instagram"
+        if "youtube" in name_lower:
+            return "youtube"
+        if "tiktok" in name_lower:
+            return "tiktok"
+        if "telegram" in name_lower:
+            return "telegram"
+        if "viber" in name_lower:
+            return "viber"
+        if "linkedin" in name_lower:
+            return "linkedin"
+        if "whatsapp" in name_lower:
+            return "whatsapp"
+
+        return "default"
 
     socials = [{
         "class_id": text(r.get("Class ID")),
