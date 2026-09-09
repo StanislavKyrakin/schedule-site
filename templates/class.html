@@ -28,7 +28,56 @@
 {% if today %}<section class="today-card"><div class="today-icon"></div><div><strong>Сьогодні — {{ today.name|capitalize }}</strong><p>{{ today.count }} уроків <i>•</i> Перший урок — {{ today.first }}</p></div><a class="outline-button" href="{{ url_for('day_page', class_id=class_obj.id, day_id=today.id) }}">Дивитися розклад на сьогодні →</a></section>{% endif %}
 
 <section class="bottom-layout"><section class="panel" id="class-groups"><div class="panel-title"><span>♟</span><h2>Наш клас</h2></div><div class="socials">
-{% for s in socials if s.type == 'social' %}<a href="{{ s.url }}" target="_blank"><span>{{ s.name[0] }}</span><small>{{ s.name }}</small></a>{% endfor %}
+
+<div class="socials">
+{% for s in socials if s.type == 'social' %}
+<a href="{{ s.url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ s.name }}">
+    <span class="social-icon {{ s.icon }}">
+        {% if s.icon == 'facebook' %}
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M14 8h3V4h-3c-3.31 0-5 1.69-5 5v3H6v4h3v4h4v-4h3l1-4h-4V9c0-.67.33-1 1-1z"/>
+            </svg>
+        {% elif s.icon == 'instagram' %}
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/>
+                <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
+                <circle cx="17.5" cy="6.5" r="1.2"/>
+            </svg>
+        {% elif s.icon == 'youtube' %}
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M21.6 7.2a2.9 2.9 0 0 0-2-2C17.8 4.7 12 4.7 12 4.7s-5.8 0-7.6.5a2.9 2.9 0 0 0-2 2C2 9 2 12 2 12s0 3 .4 4.8a2.9 2.9 0 0 0 2 2c1.8.5 7.6.5 7.6.5s5.8 0 7.6-.5a2.9 2.9 0 0 0 2-2C22 15 22 12 22 12s0-3-.4-4.8z"/>
+                <path d="m10 15.5 5-3.5-5-3.5v7z" fill="white"/>
+            </svg>
+        {% elif s.icon == 'tiktok' %}
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M15 4c.3 1.8 1.3 3.2 3 3.8.6.2 1.2.3 2 .3v3.1c-1.6 0-3-.4-4.2-1.2v5.7c0 3.1-2.5 5.3-5.6 5.3A5.2 5.2 0 0 1 5 15.9c0-3 2.5-5.3 5.5-5.3.3 0 .7 0 1 .1v3.2a2.4 2.4 0 0 0-1-.2c-1.2 0-2.2.9-2.2 2.1 0 1.1.9 2 2 2 1.4 0 2.3-.9 2.3-2.4V4H15z"/>
+            </svg>
+        {% elif s.icon == 'telegram' %}
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M21.5 3.8 18.3 20c-.2 1.1-.9 1.4-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L5.7 13.5.8 12c-1.1-.3-1.1-1 .2-1.5L20 3.1c.9-.3 1.7.2 1.5.7z"/>
+            </svg>
+        {% elif s.icon == 'viber' %}
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M17.5 3.2A7.8 7.8 0 0 0 12 2.1c-4.5 0-8.2 2.6-8.2 7.1 0 2.1.8 3.8 2.1 5.1l-.5 3.1c-.1.6.5 1 1 .7l3-1.5c.8.2 1.7.3 2.6.3 4.5 0 8.2-2.6 8.2-7.1 0-2.8-1.1-5.1-2.7-6.6z"/>
+                <path d="M8 8.2c.2-.3.5-.3.8-.1l1 .8c.3.2.3.5.1.8l-.4.5c.6 1.1 1.5 2 2.6 2.6l.5-.4c.3-.2.6-.2.8.1l.8 1c.2.3.2.6-.1.8l-.6.5c-.4.3-.9.4-1.4.2-2.5-.9-4.4-2.8-5.3-5.3-.2-.5-.1-1 .2-1.4l.5-.6z" fill="white"/>
+            </svg>
+        {% elif s.icon == 'linkedin' %}
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 4.5A2.5 2.5 0 1 1 5 9a2.5 2.5 0 0 1 0-4.5zM3 10h4v11H3V10zm6 0h3.8v1.5h.1c.5-.9 1.7-1.9 3.6-1.9 3.8 0 4.5 2.5 4.5 5.7V21h-4v-5c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21H9V10z"/>
+            </svg>
+        {% elif s.icon == 'whatsapp' %}
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2a9.8 9.8 0 0 0-8.4 14.8L2.1 22l5.3-1.4A9.9 9.9 0 1 0 12 2z"/>
+                <path d="M16.9 13.8c-.2-.1-1.6-.8-1.8-.9-.2-.1-.4-.1-.6.1-.2.2-.7.9-.8 1-.1.2-.3.2-.5.1-1.4-.7-2.3-1.3-3.2-2.9-.2-.3.2-.3.5-1 .1-.2.1-.3 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 2.6 1 2.6.7 3.1.7.5 0 1.6-.6 1.8-1.2.2-.6.2-1.1.1-1.2z" fill="white"/>
+            </svg>
+        {% else %}
+            {{ s.name[0] }}
+        {% endif %}
+    </span>
+    <small>{{ s.name }}</small>
+</a>
+{% endfor %}
+</div>  
 </div><div class="group-buttons">{% for s in socials if s.type == 'group' %}<a href="{{ s.url }}" target="_blank" class="group {{ 'telegram' if 'telegram' in s.name.lower() else 'viber' }}">{{ s.name }}</a>{% endfor %}</div></section>
 <section class="panel" id="useful"><div class="panel-title"><span>↗</span><h2>Корисні посилання</h2></div><div class="useful-list">
 {% for item in useful %}<a href="{{ item.url }}" target="_blank"><span>↗</span><div><strong>{{ item.name }}</strong><small>{{ item.description }}</small></div></a>{% endfor %}
