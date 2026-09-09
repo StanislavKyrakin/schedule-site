@@ -1,0 +1,2 @@
+{% extends "base.html" %}
+{% block content %}<section class="empty-state large"><h1>Выберите класс</h1><p>Список классов берётся из Excel.</p><div class="class-selector">{% for c in classes %}<a href="{{ url_for('class_page', class_id=c.id) }}">{{ c.name }} класс →</a>{% endfor %}</div></section>{% endblock %}

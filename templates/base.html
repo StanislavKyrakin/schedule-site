@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% block title %}{{ site_title }}{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="site-header"><div class="header-inner">
+  <a class="brand" href="{{ url_for('index') }}"><span class="brand-icon">▣</span>{{ site_title }}</a>
+  <nav class="main-nav"><a href="{{ url_for('index') }}">⌂ Главная</a>{% if class_obj is defined %}<a class="active" href="{{ url_for('class_page', class_id=class_obj.id) }}">Мой класс</a>{% endif %}<a href="{{ url_for('admin') }}">Google Sheets</a></nav>
+  {% if class_obj is defined %}<div class="class-pill">👥 {{ class_obj.name }} класс</div>{% endif %}<button class="menu-button">☰</button>
+</div></header>
+<main class="container">{% block content %}{% endblock %}</main>
+<footer class="site-footer"><div class="footer-inner">
+  <div class="footer-brand"><span class="brand-icon">▣</span><div><strong>{{ site_title }}</strong><small>Расписание уроков и полезные ресурсы</small></div></div>
+  <nav><a href="{{ url_for('index') }}">Главная</a>{% if class_obj is defined %}<a href="{{ url_for('class_page', class_id=class_obj.id) }}">Расписание</a>{% endif %}<a href="{{ url_for('admin') }}">Excel</a></nav>
+  <div class="footer-socials">●　●　●　●<small>© {{ year }}</small></div>
+</div><div class="generator-note">Данные сайта загружаются из Google Sheets</div></footer>
+</body></html>

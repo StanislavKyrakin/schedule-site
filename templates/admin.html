@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Google Sheets — {{ site_title }}{% endblock %}
+{% block content %}
+<div class="breadcrumbs"><a href="{{ url_for('index') }}">Главная</a><span>›</span><span>Google Sheets</span></div>
+<section class="panel admin-panel">
+  <div class="panel-title"><span>☁</span><h2>Источник данных сайта</h2></div>
+  <p>Сайт получает расписание непосредственно из Google Sheets.</p>
+  <div class="sheet-config">
+    <div><small>Spreadsheet ID</small><strong>{{ spreadsheet_id }}</strong></div>
+    <div><small>Последняя загрузка</small><strong>{{ loaded_at }}</strong></div>
+    <div><small>Кэш</small><strong>{{ cache_seconds }} сек.</strong></div>
+  </div>
+  <div class="stats"><div><strong>{{ classes }}</strong><small>классов</small></div><div><strong>{{ lessons }}</strong><small>уроков</small></div></div>
+  <a class="upload-button" href="{{ url_for('refresh') }}">↻ Обновить данные сейчас</a>
+  <p class="admin-note">Изменяйте Google Таблицу, сохраняйте её и обновляйте сайт. Для доступа к таблице Cloud Run использует назначенный ему service account.</p>
+</section>
+{% endblock %}
