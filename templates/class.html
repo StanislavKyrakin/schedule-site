@@ -1,36 +1,36 @@
 {% extends "base.html" %}
 {% block title %}{{ class_obj.name }} — {{ site_title }}{% endblock %}
 {% block content %}
-<div class="breadcrumbs"><a href="{{ url_for('index') }}">Главная</a><span>›</span><span>{{ class_obj.name }} класс</span></div>
+<div class="breadcrumbs"><a href="{{ url_for('index') }}">Головна</a><span>›</span><span>{{ class_obj.name }} класс</span></div>
 <section class="top-layout">
   <section class="hero"><div class="hero-content"><div class="hero-illustration">🎓<br><span>📚</span></div><div>
-    <div class="eyebrow">РАСПИСАНИЕ КЛАССА</div><h1>{{ class_obj.name }} класс</h1><p>Расписание уроков на неделю</p>
-    <div class="class-info">{% if class_obj.teacher %}<div><span class="info-icon">♙</span><div><small>Классный руководитель</small><strong>{{ class_obj.teacher }}</strong></div></div>{% endif %}
-    {% if class_obj.room %}<div><span class="info-icon">▣</span><div><small>Кабинет</small><strong>{{ class_obj.room }}</strong></div></div>{% endif %}</div>
+    <div class="eyebrow">РОЗКЛАД КЛАСУ</div><h1>{{ class_obj.name }} клас</h1><p>Розклад уроків на тиждень</p>
+    <div class="class-info">{% if class_obj.teacher %}<div><span class="info-icon">♙</span><div><small>Класний керівник</small><strong>{{ class_obj.teacher }}</strong></div></div>{% endif %}
+    {% if class_obj.room %}<div><span class="info-icon">▣</span><div><small>Кабінет</small><strong>{{ class_obj.room }}</strong></div></div>{% endif %}</div>
   </div></div></section>
   <aside class="quick-links">
-    <a class="quick blue" href="#schedule"><b>▣</b><span><strong>Расписание</strong><small>Перейти к расписанию</small></span></a>
-    <a class="quick green" href="https://imzo.gov.ua/elektronni-versii-pidruchnykiv/" target="_blank"><b>▤</b><span><strong>Учебники</strong><small>Электронные учебники</small></span></a>
-    <a class="quick purple" href="#class-groups"><b>♟</b><span><strong>Группа класса</strong><small>Наши чаты и сообщество</small></span></a>
-    <a class="quick cyan" href="#useful"><b>↗</b><span><strong>Полезные ссылки</strong><small>Важные ресурсы</small></span></a>
+    <a class="quick blue" href="#schedule"><b>▣</b><span><strong>Розклад</strong><small>Перейти до розкладу</small></span></a>
+    <a class="quick green" href="https://imzo.gov.ua/elektronni-versii-pidruchnykiv/" target="_blank"><b>▤</b><span><strong>Електронні підручники</strong><small>Електронні підручники</small></span></a>
+    <a class="quick purple" href="#class-groups"><b>♟</b><span><strong>Група класу</strong><small>Наші чати та спільнота</small></span></a>
+    <a class="quick cyan" href="#useful"><b>↗</b><span><strong>Корисні посилання</strong><small>Важливі ресурси</small></span></a>
   </aside>
 </section>
-<section id="schedule"><div class="section-heading"><div><span class="section-icon">▣</span><h2>Выберите день недели</h2></div><span class="section-note">Откройте день, чтобы увидеть все уроки</span></div>
+<section id="schedule"><div class="section-heading"><div><span class="section-icon">▣</span><h2>Оберіть день тижня</h2></div><span class="section-note">Відкрийте день, щоб переглянути всі уроки</span></div>
 <div class="days-grid">
 {% for day in day_cards %}<a class="day-card {{ ['blue','green','purple','yellow','pink'][loop.index0 % 5] }}" href="{{ url_for('day_page', class_id=class_obj.id, day_id=day.id) }}">
 <div class="day-head"><span class="day-badge">{{ day.short }}</span><strong>{{ day.name|capitalize }}</strong></div>
-<div class="day-meta"><span>▤</span>{{ day.count }} {% if day.count == 1 %}урок{% elif day.count < 5 %}урока{% else %}уроков{% endif %}</div>
+<div class="day-meta"><span>▤</span>{{ day.count }} {% if day.count == 1 %}урок{% elif day.count < 5 %}урока{% else %}уроків{% endif %}</div>
 <div class="day-meta"><span>◷</span>{{ day.first }} – {{ day.last }}</div>
 <ol>{% for lesson in day.lessons %}<li><span>{{ lesson.lesson }}</span>{{ lesson.subject }}</li>{% endfor %}</ol>
-<span class="open-day">Открыть расписание →</span></a>{% endfor %}
+<span class="open-day">Відкрити розклад →</span></a>{% endfor %}
 </div></section>
 
-{% if today %}<section class="today-card"><div class="today-icon">☀</div><div><strong>Сегодня — {{ today.name|capitalize }}</strong><p>{{ today.count }} уроков <i>•</i> Первый урок — {{ today.first }}</p></div><a class="outline-button" href="{{ url_for('day_page', class_id=class_obj.id, day_id=today.id) }}">Смотреть расписание на сегодня →</a></section>{% endif %}
+{% if today %}<section class="today-card"><div class="today-icon"></div><div><strong>Сьогодні — {{ today.name|capitalize }}</strong><p>{{ today.count }} уроків <i>•</i> Перший урок — {{ today.first }}</p></div><a class="outline-button" href="{{ url_for('day_page', class_id=class_obj.id, day_id=today.id) }}">Смотреть расписание на сегодня →</a></section>{% endif %}
 
 <section class="bottom-layout"><section class="panel" id="class-groups"><div class="panel-title"><span>♟</span><h2>Наш класс</h2></div><div class="socials">
 {% for s in socials if s.type == 'social' %}<a href="{{ s.url }}" target="_blank"><span>{{ s.name[0] }}</span><small>{{ s.name }}</small></a>{% endfor %}
 </div><div class="group-buttons">{% for s in socials if s.type == 'group' %}<a href="{{ s.url }}" target="_blank" class="group {{ 'telegram' if 'telegram' in s.name.lower() else 'viber' }}">{{ s.name }}</a>{% endfor %}</div></section>
-<section class="panel" id="useful"><div class="panel-title"><span>↗</span><h2>Полезные ссылки</h2></div><div class="useful-list">
+<section class="panel" id="useful"><div class="panel-title"><span>↗</span><h2>Корисні посилання</h2></div><div class="useful-list">
 {% for item in useful %}<a href="{{ item.url }}" target="_blank"><span>↗</span><div><strong>{{ item.name }}</strong><small>{{ item.description }}</small></div></a>{% endfor %}
 </div></section></section>
 {% endblock %}
