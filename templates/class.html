@@ -27,8 +27,9 @@
 
 {% if today %}<section class="today-card"><div class="today-icon"></div><div><strong>Сьогодні — {{ today.name|capitalize }}</strong><p>{{ today.count }} уроків <i>•</i> Перший урок — {{ today.first }}</p></div><a class="outline-button" href="{{ url_for('day_page', class_id=class_obj.id, day_id=today.id) }}">Дивитися розклад на сьогодні →</a></section>{% endif %}
 
-<section class="bottom-layout"><section class="panel" id="class-groups"><div class="panel-title"><span>♟</span><h2>Наш клас</h2></div><div class="socials">
-
+<section class="bottom-layout"><section class="panel" id="class-groups">
+  <div class="panel-title"><span>♟</span><h2>Наш клас</h2></div>
+  
 <div class="socials">
 {% for s in socials if s.type == 'social' %}
 <a href="{{ s.url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ s.name }}">
